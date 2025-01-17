@@ -1,0 +1,17 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  /* background: #ffd5e5; */
+  background: url("../assets/background.jpg");
+  background-size: cover;
+  color: rgba(248, 214, 19, 0.993);
+  background-position: center -135px;
+  overflow-y: auto;
+  text-align: center;
+  margin: 0;
+  overflow: hidden;
+}

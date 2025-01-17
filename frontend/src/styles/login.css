@@ -1,0 +1,83 @@
+:root {
+  --primary-color: #b58ded;
+  --secondary-color: #ffffff;
+  --shadow-color: rgba(0, 0, 0, 0.2);
+}
+
+.login-form-container {
+  display: inline-block;
+  background: #ffffff;
+  width: 434px;
+  height: 500px;
+  margin-top: 4%;
+  border-radius: 22px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  text-align: center;
+}
+
+.login-form-title {
+  font-family: "Segoe UI", bold;
+  font-size: 35px;
+  margin-top: 4rem;
+  margin-bottom: 2rem;
+}
+
+.login-form {
+  display: inline-block;
+  align-items: center;
+  height: 200px;
+  width: 350px;
+}
+
+.login-form-text-area {
+  align-content: center;
+  border-radius: 22px;
+  margin-bottom: 35px;
+  width: 100%;
+  height: 64px;
+  box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.2), 0 0 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.login-form-input {
+  font-family: "Montserrat regular";
+  font-size: 20px;
+  border: none;
+  width: 80%;
+  padding: 0.5rem;
+}
+
+.login-form-input:focus {
+  outline: none;
+}
+
+.login-form-btn {
+  margin-top: 28px;
+  width: 165px;
+  height: 60px;
+  border-radius: 30px;
+  background: #b58ded;
+  border: none;
+  font-family: "Montserrat";
+  font-size: 20px;
+  color: #ffffff;
+  box-shadow: 0 4px 8px 0 rgba(181, 141, 237, 0.7),
+    0 6px 20px 0 rgba(181, 141, 237, 0.9);
+  cursor: pointer;
+}
+
+.login-form-btn:hover {
+  opacity: 0.8;
+}
+
+.login-form-btn:active {
+  opacity: 0.9;
+}
+
+.login-form-link {
+  color: #0e4579;
+  font-family: "Montserrat light";
+  font-size: 18px;
+  cursor: pointer;
+  display: block;
+  text-decoration: none;
+}

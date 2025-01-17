@@ -1,0 +1,62 @@
+@import url("https://fonts.googleapis.com/css?family=Acme|Amaranth|Courgette|Fira+Sans+Condensed|Lato|Open+Sans|Oswald|PT+Sans|Raleway|Rancho|Roboto|Sacramento|Roboto+Condensed|Sarala|Signika|Source+Sans+Pro&display=swap");
+@import url("https://use.fontawesome.com/releases/v5.14.0/css/all.css");
+
+nav {
+  background: #000 !important;
+  padding: 10px 20px; /* Padding for spacing */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+nav a {
+  width: 50px;
+  height: 50px;
+  margin: 0;
+  color: #ff9800;
+  font: 400 16px "Consolas";
+  text-align: center;
+  text-decoration: none;
+}
+
+nav a:hover,
+nav button:hover {
+  background: #4d4d4d;
+  color: #fff;
+}
+
+nav a:focus,
+nav button:focus {
+  background: #ff9800;
+  color: #000;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 7vh;
+}
+
+.navbar-right {
+  display: flex;
+  flex: 1;
+  justify-content: flex-end; /* Align to the right */
+  list-style: none; /* Remove bullet points */
+  margin: 0;
+  padding: 0;
+}
+
+.navbar-right li {
+  margin-right: 20px; /* Space between links */
+}
+
+.nav-link {
+  color: #ff9800;
+  font: 400 16px "Consolas";
+  text-decoration: none;
+  padding: 8px 5px;
+  border-radius: 4px;
+}
+
+.navbar-right li:last-child {
+  margin-right: 10px; /* Add more space for the last link (Logout) */
+}
