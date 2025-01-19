@@ -1,21 +1,53 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import "../../styles/addHotel.css";
 import Navbar from "../Shared/Navbar";
+import axios from "axios";
 
 const AddHotelPage = () => {
+  const fileInputRef = useRef(null);
+
   const [hotelName, setHotelName] = useState("");
   const [address, setAddress] = useState("");
   const [logo, setLogo] = useState(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const formData = new FormData();
-    formData.append("hotelName", hotelName);
+    formData.append("name", hotelName);
     formData.append("address", address);
     formData.append("logo", logo);
 
-    console.log("Hotel Details Submitted:", { hotelName, address, logo });
+    try {
+      setIsSubmitting(true);
+      const response = await axios.post(
+        "http://localhost:5000/api/admin/addhotel",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        console.log("Hotel added successfully:", response.data);
+        alert("Hotel added successfully!");
+        setHotelName("");
+        setAddress("");
+        setLogo(null);
+        fileInputRef.current.value = ""; // Reset file input
+      } else {
+        console.error("Failed to add hotel");
+        alert("Failed to add hotel. Please try again.");
+      }
+    } catch (error) {
+      console.error("Error while submitting hotel details:", error);
+      alert("An error occurred. Please try again later.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -63,12 +95,17 @@ const AddHotelPage = () => {
               id="logo"
               name="logo"
               accept="image/*"
+              ref={fileInputRef}
               onChange={(e) => setLogo(e.target.files[0])}
               className="add-hotel-input"
               required
             />
-            <button type="submit" className="add-hotel-submit-button">
-              Submit
+            <button
+              type="submit"
+              className="add-hotel-submit-button"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? "Submitting..." : "Submit"}
             </button>
           </form>
         </div>

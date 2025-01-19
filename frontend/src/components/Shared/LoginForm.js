@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import "../../styles/login.css";
 
 const LoginForm = () => {
@@ -13,15 +14,33 @@ const LoginForm = () => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Simulate login logic
-    if (credentials.username === "mainadmin") {
-      navigate("/main-admin/dashboard");
-    } else if (credentials.username === "guestadmin") {
-      navigate("/guest-admin/dashboard");
-    } else {
-      alert("Invalid credentials!");
+
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/api/auth/login",
+        credentials
+      );
+
+      if (response.data.success) {
+        // Store token and user data in localStorage
+        const { token, user } = response.data.data;
+        sessionStorage.setItem("token", token);
+        sessionStorage.setItem("user", JSON.stringify(user)); // Store whole user data, including role
+
+        // Redirect based on the role stored in user data
+        const { role } = user; // Directly accessing the role from user data
+
+        if (role === "mainAdmin") {
+          navigate("/main-admin/dashboard");
+        } else if (role === "guestAdmin") {
+          navigate("/guest-admin/dashboard");
+        }
+      }
+    } catch (error) {
+      console.error("Login failed:", error);
+      alert("Invalid username or password!");
     }
   };
 

@@ -7,6 +7,9 @@ import LandingPage from "./components/Guest/LandingPage";
 import ThankYouPage from "./components/Guest/ThankYouPage";
 import AddHotelPage from "./components/MainAdmin/AddHotel";
 import HotelTable from "./components/MainAdmin/HotelTable";
+import ViewGuest from "./components/GuestAdmin/ViewGuest";
+import QrCodePage from "./components/MainAdmin/QRCodePage";
+import GuestTable from "./components/GuestAdmin/GuestTable";
 import "../src/styles/main.css";
 
 const App = () => {
@@ -20,15 +23,27 @@ const App = () => {
           element={<HotelTable />}
         />
         <Route
+          path="/main-admin/dashboard/add-hotel"
+          element={<AddHotelPage />}
+        />
+        <Route
           path="/guest-admin/dashboard"
           element={<GuestAdminDashboard />}
         />
         <Route
-          path="/main-admin/dashboard/add-hotel"
-          element={<AddHotelPage />}
+          path="/guest-admin/dashboard/view-guest"
+          element={<ViewGuest />}
+        />
+        <Route
+          path="/main-admin/dashboard/view-hotels/qr"
+          element={<QrCodePage />}
+        />
+        <Route
+          path="/guest-admin/dashboard/edit/:guestId"
+          element={<GuestTable />}
         />
         <Route path="/hotel/:hotelId" element={<LandingPage />} />
-        <Route path="/thank-you" element={<ThankYouPage />} />
+        {/* <Route path="/thank-you" element={<ThankYouPage />} /> */}
       </Routes>
     </div>
   );

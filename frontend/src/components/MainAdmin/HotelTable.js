@@ -1,96 +1,78 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Navbar from "../Shared/Navbar";
+import axios from "axios";
 import "../../styles/viewHotel.css";
 
 const HotelTable = () => {
-  // const [hotels, setHotels] = useState([]);
+  const [hotels, setHotels] = useState([]); // Store hotel data
+  const [loading, setLoading] = useState(true); // State to handle loading state
+  const [error, setError] = useState(null); // State to handle error
 
-  // useEffect(() => {
-  //   // Fetch hotel data from API
-  //   const fetchHotels = async () => {
-  //     // Replace with real API call
-  //     const mockHotels = [
-  //       { id: 1, name: "Hotel One", address: "123 Street", qrCode: "#" },
-  //       { id: 2, name: "Hotel Two", address: "456 Avenue", qrCode: "#" },
-  //     ];
-  //     setHotels(mockHotels);
-  //   };
+  const nav = useNavigate();
 
-  //   fetchHotels();
-  // }, []);
+  useEffect(() => {
+    const fetchHotels = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:5000/api/admin/gethotel"
+        );
+        setHotels(response.data.hotels); // Set the fetched data to the state
+        setLoading(false); // Set loading state to false after data is fetched
+      } catch (err) {
+        setError("Failed to fetch hotels"); // Handle any errors
+        setLoading(false); // Set loading state to false even in case of error
+      }
+    };
+    fetchHotels();
+  }, []);
+
+  if (loading) {
+    return (
+      <>
+        <Navbar />
+        <div>Loading...</div>
+      </>
+    ); // Show a loading message while data is being fetched
+  }
+
+  if (error) {
+    return (
+      <>
+        <Navbar />
+        <div>{error}</div>
+      </>
+    ); // Show an error message if the fetch fails
+  }
 
   return (
     <>
       <Navbar />
       <div className="table-body">
         <div className="card-list">
-          <div className="card-item">
-            <img
-              src="https://www.codingdojo.com/blog/wp-content/uploads/9-Types-of-Developers-Which-One-Will-You-Be-01.jpg"
-              alt="Card-Image"
-            ></img>
-            <span className="developer">Developer</span>
-            <h3>A "developer" codes software and websites.</h3>
-            <div class="arrow">
-              <i class="fas fa-arrow-right card-icon"></i>
+          {hotels.map((hotel) => (
+            <div className="card-item" key={hotel._id || hotel.id}>
+              {" "}
+              {/* Use hotel._id or hotel.id */}
+              <img
+                src={`http://localhost:5000${hotel.logo}`}
+                alt="Hotel Logo"
+              />
+              <span className="developer">{hotel.name}</span>
+              <h3>{hotel.address}</h3>
+              <div
+                className="arrow"
+                onClick={() => {
+                  // Navigate to the QrCodePage and pass the QR code using state
+                  nav("/main-admin/dashboard/view-hotels/qr", {
+                    state: { qrcode: hotel.qrCode }, // Pass the QR code here
+                  });
+                }}
+              >
+                <i className="fas fa-arrow-right card-icon"></i>
+              </div>
             </div>
-          </div>
-          <div className="card-item">
-            <img
-              src="https://www.codingdojo.com/blog/wp-content/uploads/9-Types-of-Developers-Which-One-Will-You-Be-01.jpg"
-              alt="Card-Image"
-            ></img>
-            <span className="developer">Developer</span>
-            <h3>A "developer" codes software and websites.</h3>
-            <div class="arrow">
-              <i class="fas fa-arrow-right card-icon"></i>
-            </div>
-          </div>
-          <div className="card-item">
-            <img
-              src="https://www.codingdojo.com/blog/wp-content/uploads/9-Types-of-Developers-Which-One-Will-You-Be-01.jpg"
-              alt="Card-Image"
-            ></img>
-            <span className="developer">Developer</span>
-            <h3>A "developer" codes software and websites.</h3>
-            <div class="arrow">
-              <i class="fas fa-arrow-right card-icon"></i>
-            </div>
-          </div>
-          <div className="card-item">
-            <img
-              src="https://www.codingdojo.com/blog/wp-content/uploads/9-Types-of-Developers-Which-One-Will-You-Be-01.jpg"
-              alt="Card-Image"
-            ></img>
-            <span className="developer">Developer</span>
-            <h3>A "developer" codes software and websites.</h3>
-            <div class="arrow">
-              <i class="fas fa-arrow-right card-icon"></i>
-            </div>
-          </div>
-
-          <div className="card-item">
-            <img
-              src="https://www.codingdojo.com/blog/wp-content/uploads/9-Types-of-Developers-Which-One-Will-You-Be-01.jpg"
-              alt="Card-Image"
-            ></img>
-            <span className="designer">Designer</span>
-            <h3>A "designer" is a design expert.</h3>
-            <div class="arrow">
-              <i class="fas fa-arrow-right card-icon"></i>
-            </div>
-          </div>
-          <div className="card-item">
-            <img
-              src="https://www.codingdojo.com/blog/wp-content/uploads/9-Types-of-Developers-Which-One-Will-You-Be-01.jpg"
-              alt="Card-Image"
-            ></img>
-            <span className="editor">Editor</span>
-            <h3>An "editor" ensures content quality and accuracy.</h3>
-            <div class="arrow">
-              <i class="fas fa-arrow-right card-icon"></i>
-            </div>
-          </div>
+          ))}
         </div>
       </div>
     </>

@@ -6,9 +6,7 @@ import "./styles/main.css";
 
 const root = ReactDOM.createRoot(document.getElementById("root")); // Create a root
 root.render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
-  </React.StrictMode>
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>
 );

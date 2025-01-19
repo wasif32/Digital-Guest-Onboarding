@@ -1,4 +1,7 @@
 const express = require("express");
+const multer = require("multer");
+const upload = multer();
+
 const {
   submitGuestDetails,
   getHotelLandingPage,
@@ -6,6 +9,6 @@ const {
 const router = express.Router();
 
 router.get("/:hotelId", getHotelLandingPage);
-router.post("/:hotelId", submitGuestDetails);
+router.post("/:hotelId", upload.none(), submitGuestDetails);
 
 module.exports = router;

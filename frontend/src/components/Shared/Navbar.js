@@ -1,23 +1,54 @@
 import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import "../../styles/navbar.css"; // External CSS file
 
 const Navbar = () => {
   const location = useLocation();
+  const navigate = useNavigate(); // Used for navigation
+
+  const handleLogout = () => {
+    // Remove user and token from sessionStorage
+    sessionStorage.removeItem("user");
+    sessionStorage.removeItem("token");
+
+    // Redirect to the homepage or login page after logout
+    navigate("/"); // You can change this path to your desired route
+  };
 
   return (
     <nav>
       <div className="navbar">
         {/* Left-aligned "Welcome" */}
         <div className="navbar-left">
-          <Link to="/guest-admin/dashboard" className="nav-link">
-            Welcome
-          </Link>
+          {[
+            "/main-admin/dashboard",
+            "/main-admin/dashboard/add-hotel",
+            "/main-admin/dashboard/view-hotels",
+            "/main-admin/dashboard/view-hotels/qr",
+          ].includes(location.pathname) ? (
+            <Link to="/main-admin/dashboard" className="nav-link">
+              Welcome
+            </Link>
+          ) : [
+              "/guest-admin/dashboard",
+              "/guest-admin/dashboard/view-guest",
+            ].includes(location.pathname) ? (
+            <Link to="/guest-admin/dashboard" className="nav-link">
+              Welcome
+            </Link>
+          ) : null}
         </div>
 
         {/* Right-aligned links */}
         <ul className="navbar-right">
-          {location.pathname === "/guest-admin/dashboard" ? (
+          {location.pathname === "/guest-admin/dashboard/view-guest" ? (
+            // Render only Logout for this specific route
+            <li>
+              <Link to="/" className="nav-link" onClick={handleLogout}>
+                Logout
+              </Link>
+            </li>
+          ) : location.pathname === "/guest-admin/dashboard" ? (
             <>
               <li>
                 <Link
@@ -28,7 +59,7 @@ const Navbar = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/" className="nav-link">
+                <Link to="/" className="nav-link" onClick={handleLogout}>
                   Logout
                 </Link>
               </li>
@@ -56,7 +87,7 @@ const Navbar = () => {
                 </li>
               )}
               <li>
-                <Link to="/" className="nav-link">
+                <Link to="/" className="nav-link" onClick={handleLogout}>
                   Logout
                 </Link>
               </li>
