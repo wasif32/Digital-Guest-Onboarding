@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import "../../styles/addHotel.css";
 import Navbar from "../Shared/Navbar";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 
@@ -14,6 +15,7 @@ const LandingPage = () => {
   const [email, setEmail] = useState("");
   const [idProofNumber, setIdProofNumber] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -50,6 +52,7 @@ const LandingPage = () => {
         setStayDates({ from: "", to: "" });
         setEmail("");
         setIdProofNumber("");
+        navigate("/thank-you");
       }
     } catch (error) {
       console.error("Error while submitting guest details:", error);

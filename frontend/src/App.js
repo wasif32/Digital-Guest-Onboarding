@@ -4,12 +4,12 @@ import LoginForm from "./components/Shared/LoginForm";
 import MainAdminDashboard from "./components/MainAdmin/Dashboard";
 import GuestAdminDashboard from "./components/GuestAdmin/Dashboard";
 import LandingPage from "./components/Guest/LandingPage";
-import ThankYouPage from "./components/Guest/ThankYouPage";
 import AddHotelPage from "./components/MainAdmin/AddHotel";
 import HotelTable from "./components/MainAdmin/HotelTable";
 import ViewGuest from "./components/GuestAdmin/ViewGuest";
 import QrCodePage from "./components/MainAdmin/QRCodePage";
 import GuestTable from "./components/GuestAdmin/GuestTable";
+import ThankYouPage from "./components/Guest/ThankYouPage";
 import "../src/styles/main.css";
 
 const App = () => {
@@ -43,7 +43,7 @@ const App = () => {
           element={<GuestTable />}
         />
         <Route path="/hotel/:hotelId" element={<LandingPage />} />
-        {/* <Route path="/thank-you" element={<ThankYouPage />} /> */}
+        <Route path="/thank-you" element={<ThankYouPage />} />
       </Routes>
     </div>
   );
